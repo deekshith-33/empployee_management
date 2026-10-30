@@ -7,6 +7,7 @@ from app.logger import logger
 from app.models import Employee
 
 
+
 class EmployeeService:
     """Service handling CRUD operations and JSON persistence."""
 
