@@ -1,4 +1,3 @@
-
 from sqlalchemy import (
     Column,
     Integer,
@@ -40,6 +39,8 @@ class User(Base):
         server_default="employee",
     )
 
+    employee = relationship("Employee", back_populates="user", uselist=False)
+
     created_at = Column(
         DateTime(timezone=True),
         server_default=text("CURRENT_TIMESTAMP"),
@@ -67,8 +68,6 @@ class Employee(Base):
         ForeignKey("departments.id", ondelete="RESTRICT"),
         nullable=False,
     )
-
-    # Allows access to the related department and its name
     department = relationship("Department")
 
     user_id = Column(
@@ -77,6 +76,7 @@ class Employee(Base):
         unique=True,
         nullable=True,
     )
+    user = relationship("User", back_populates="employee")
 
     created_at = Column(
         DateTime(timezone=True),

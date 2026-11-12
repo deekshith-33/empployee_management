@@ -214,7 +214,7 @@ alembic upgrade head
 ## 6. Start the FastAPI Application
 
 ```bash
-python -m uvicorn main:app --reload
+python -m uvicorn main:app --reload"
 ```
 
 The application will run at:

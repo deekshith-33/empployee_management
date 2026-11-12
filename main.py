@@ -1,6 +1,6 @@
-
 from fastapi import FastAPI
 from routes.employee_routes import router as employee_router
+from routes import auth
 
 app = FastAPI(
     title="Employee Management API",
@@ -8,7 +8,8 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Register employee routes
+
+app.include_router(auth.router)
 app.include_router(employee_router)
 
 

@@ -1,6 +1,5 @@
-
-from typing import Optional
-
+from datetime import datetime
+from typing import List, Optional
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
@@ -28,5 +27,41 @@ class EmployeeUpdate(BaseModel):
 class EmployeeResponse(EmployeeBase):
     id: int
     department_name: str
+    user_id: Optional[int] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class PaginatedEmployeeResponse(BaseModel):
+    total: int
+    page: int
+    limit: int
+    total_pages: int
+    items: List[EmployeeResponse]
+
+
+class UserBase(BaseModel):
+    email: EmailStr
+    role: str = "employee"
+
+
+class UserCreate(UserBase):
+    password: str = Field(..., min_length=6, max_length=128)
+
+
+class UserResponse(UserBase):
+    id: int
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+# --- Auth & Token Schemas ---
+class Token(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+
+
+class TokenData(BaseModel):
+    email: Optional[str] = None
+    role: Optional[str] = None
