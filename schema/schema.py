@@ -1,4 +1,5 @@
 from datetime import datetime
+from enum import Enum
 from typing import List, Optional
 from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
@@ -40,13 +41,24 @@ class PaginatedEmployeeResponse(BaseModel):
     items: List[EmployeeResponse]
 
 
+# --- User & RBAC Schemas ---
+class UserRole(str, Enum):
+    ADMIN = "admin"
+    EMPLOYEE = "employee"
+
+
 class UserBase(BaseModel):
     email: EmailStr
-    role: str = "employee"
+    role: UserRole = UserRole.EMPLOYEE
 
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=6, max_length=128)
+    admin_secret: Optional[str] = None
+
+
+class UserRoleUpdate(BaseModel):
+    role: UserRole
 
 
 class UserResponse(UserBase):

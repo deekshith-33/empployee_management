@@ -136,28 +136,26 @@ You can test API endpoints directly from Swagger UI.
 
 ```text
 Emp_Mgmt/
-│
+├── core/
+│   ├── dependencies.py      # JWT validation & RBAC role dependencies
+│   ├── exceptions.py        # Custom domain exceptions
+│   ├── logging_config.py    # Structured JSON logger
+│   └── security.py          # Bcrypt password hashing & JWT utilities
 ├── database/
-│   └── database.py
-│
+│   └── database.py          # SQLAlchemy engine & session dependency
 ├── models/
-│   └── ...
-│
+│   └── models.py            # Department, User, and Employee ORM models
+├── postman/
+│   └── Employee_Management_API.postman_collection.json
 ├── routes/
-│   └── employee_routes.py
-│
+│   ├── auth.py              # Registration, login, and profile routes
+│   └── employee_routes.py   # Protected Employee CRUD routes
 ├── schema/
-│   └── schema.py
-│
-├── alembic/
-│   └── ...
-│
-├── .env
-├── .env.example
-├── .gitignore
-├── main.py
-├── requirements.txt
-└── README.md
+│   └── schema.py            # Pydantic request/response schemas
+├── tests/
+│   └── test_api.py          # Automated pytest suite
+├── main.py                  # FastAPI app, middleware & global error handlers
+└── service.py               # Business logic, pagination, filtering & sorting
 ```
 
 *The structure is illustrative. Keep the folder and file names synchronized with your actual project.*
@@ -252,4 +250,4 @@ Through this project, I gained practical experience with:
 ---
 
 *This project is being developed incrementally as part of my backend development learning journey.*
->>>>>>> 2ac8e2506215b4496949358e66dc091563eecc8a
+>>>>>>> 

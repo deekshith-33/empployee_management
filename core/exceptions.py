@@ -1,10 +1,13 @@
-class AppBaseException(Exception):
+from fastapi import HTTPException
+
+
+class AppBaseException(HTTPException):
     """Base exception for all custom application errors."""
     def __init__(self, message: str, status_code: int = 400, error_code: str = "APP_ERROR"):
         self.message = message
         self.status_code = status_code
         self.error_code = error_code
-        super().__init__(self.message)
+        super().__init__(status_code=status_code, detail=message)
 
 
 class EmployeeNotFoundException(AppBaseException):
